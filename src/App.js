@@ -33,7 +33,7 @@ class App extends React.Component {
           alignItems: "center",
         }}
       >
-        <input type="text" id="nam" onChange={this.addTxt} />
+        <input type="text" onChange={this.addTxt} />
         <br />
         <button onClick={this.addNote} className="button-33" role="button">
           Add
