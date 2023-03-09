@@ -1,25 +1,57 @@
-import logo from './logo.svg';
-import './App.css';
-
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import "./App.css";
+import React from "react";
+import Note from "./Note";
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      txt: "",
+      notes: [],
+    };
+  }
+  addTxt = this.addTxt.bind(this);
+  addNote = this.addNote.bind(this);
+  addTxt(e) {
+    let newSt = this.state;
+    newSt.txt = e.target.value;
+    this.setState(newSt);
+  }
+  addNote() {
+    let newSt = this.state;
+    newSt.notes.push({
+      txt: this.state.txt,
+    });
+    this.setState(newSt);
+  }
+  render() {
+    let list = this.state.notes.map((el, id) => <Note txt={el.txt} key={id} />);
+    return (
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <input type="text" id="nam" onChange={this.addTxt} />
+        <br />
+        <button onClick={this.addNote} className="button-33" role="button">
+          Add
+        </button>
+        <br />
+        <table id="table">
+          <thead>
+            <tr>
+              <th>Text</th>
+              <th>Time and Date</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>{list}</tbody>
+        </table>
+      </div>
+    );
+  }
 }
 
 export default App;
