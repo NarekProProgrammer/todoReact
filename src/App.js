@@ -1,30 +1,22 @@
 import "./App.css";
 import React from "react";
-import Note from "./Note";
+import Header from "./Header.js";
+import Table from "./Table.js";
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      txt: "",
       notes: [],
     };
   }
-  addTxt = this.addTxt.bind(this);
-  addNote = this.addNote.bind(this);
-  addTxt(e) {
-    let newSt = this.state;
-    newSt.txt = e.target.value;
-    this.setState(newSt);
-  }
-  addNote() {
+  add = (text) => {
     let newSt = this.state;
     newSt.notes.push({
-      txt: this.state.txt,
+      txt: text,
     });
     this.setState(newSt);
-  }
+  };
   render() {
-    let list = this.state.notes.map((el, id) => <Note txt={el.txt} key={id} />);
     return (
       <div
         style={{
@@ -33,22 +25,10 @@ class App extends React.Component {
           alignItems: "center",
         }}
       >
-        <input type="text" onChange={this.addTxt} />
+        <Header add={this.add} />
         <br />
-        <button onClick={this.addNote} className="button-33" role="button">
-          Add
-        </button>
         <br />
-        <table id="table">
-          <thead>
-            <tr>
-              <th>Text</th>
-              <th>Time and Date</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>{list}</tbody>
-        </table>
+        <Table list={this.state.notes} />
       </div>
     );
   }
