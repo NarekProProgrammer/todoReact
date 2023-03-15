@@ -10,7 +10,26 @@ export default class Table extends React.Component {
     };
   }
   render() {
-    let list = this.state.notes.map((el, id) => <Note txt={el.txt} key={id} />);
+    let list;
+    switch (this.props.type) {
+      case "all":
+        list = this.state.notes.map((el, id) => (
+          <Note txt={el.txt} key={id} type={this.props.type} />
+        ));
+        break;
+      case "marked":
+        list = this.state.notes.filter((el) => el.done);
+        list = this.state.notes.map((el, id) => (
+          <Note txt={el.txt} key={id} type={this.props.type} />
+        ));
+        break;
+      case "unmarked":
+        list = this.state.notes.filter((el) => !el.done);
+        list = this.state.notes.map((el, id) => (
+          <Note txt={el.txt} key={id} type={this.props.type} />
+        ));
+        break;
+    }
     return (
       <div
         style={{

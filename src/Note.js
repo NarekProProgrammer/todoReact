@@ -43,6 +43,12 @@ export default class Note extends React.Component {
     if (this.state.deleted) {
       return;
     }
+    if (this.state.done && this.props.type === "unmarked") {
+      return;
+    }
+    if (this.state.done === false && this.props.type === "marked") {
+      return;
+    }
     let d = new Date();
     return (
       <tr>
